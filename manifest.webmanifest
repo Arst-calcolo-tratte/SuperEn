@@ -1,10 +1,10 @@
 {
-  "name":"Sestina Fissa — SuperEnalotto",
-  "short_name":"Sestina Fissa",
+  "name":"Laboratorio Numerico — SuperEnalotto e VinciCasa",
+  "short_name":"Laboratorio Numerico",
   "start_url":"./",
   "display":"standalone",
   "background_color":"#06111f",
   "theme_color":"#071525",
   "lang":"it-IT",
-  "icons":[]
+  "icons":[{"src":"icon.svg","sizes":"180x180","type":"image/svg+xml","purpose":"any maskable"}]
 }
