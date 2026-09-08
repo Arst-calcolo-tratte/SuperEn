@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#071525">
+  <meta name="description" content="Sestina fissa — monitoraggio statistico non ufficiale SuperEnalotto">
+  <title>Sestina Fissa — SuperEnalotto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.webmanifest">
+</head>
+<body>
+  <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark"><span>6</span></div>
+      <div><div class="eyebrow">PROGETTO STATISTICO</div><h1>Sestina Fissa</h1></div>
+    </div>
+    <div class="status-pill"><span class="dot"></span><span id="syncLabel">Archivio sincronizzato</span></div>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="kicker">LA COMBINAZIONE IN OSSERVAZIONE</div>
+        <h2>Una sestina.<br><span>Fissa fino alla sua estrazione.</span></h2>
+        <p>La combinazione viene mantenuta invariata. Dopo ogni concorso l'archivio si aggiorna e il risultato viene verificato automaticamente.</p>
+      </div>
+      <div class="hero-card">
+        <div class="mini-label">ULTIMA ESTRAZIONE</div>
+        <div id="latestDate" class="latest-date">—</div>
+        <div id="latestDraw" class="draw-line"></div>
+        <div class="jolly-line">Jolly <b id="latestJolly">—</b></div>
+      </div>
+    </section>
+
+    <section class="fixed-card">
+      <div class="card-head"><div><div class="kicker">COMBINAZIONE FISSA</div><h3>06 · 38 · 43 · 53 · 61 · 83</h3></div><div class="lock">🔒 FISSA</div></div>
+      <div class="balls" id="targetBalls"></div>
+      <div class="jolly-target"><span>JOLLY</span><div class="ball ball-jolly">80</div></div>
+      <div class="fixed-note">Questa combinazione non viene modificata automaticamente.</div>
+    </section>
+
+    <section class="result-grid">
+      <article class="result-card" id="resultCard">
+        <div class="result-top"><div><div class="kicker">ULTIMO CONTROLLO</div><h3 id="resultTitle">In attesa del prossimo concorso</h3></div><div id="resultBadge" class="result-badge neutral">—</div></div>
+        <div class="match-row" id="matchRow"></div>
+        <div id="resultMessage" class="result-message">Il sistema confronterà automaticamente la sestina fissa con l'ultima estrazione disponibile.</div>
+      </article>
+      <article class="stats-card">
+        <div class="kicker">STATISTICHE DELL'ESPERIMENTO</div>
+        <div class="stat-grid">
+          <div><span>Concorsi osservati</span><b id="observed">0</b></div>
+          <div><span>Miglior risultato</span><b id="bestHit">—</b></div>
+          <div><span>Ultimo concorso</span><b id="latestContest">—</b></div>
+          <div><span>Sestina già estratta?</span><b id="historicalCheck">—</b></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="history-card">
+      <div class="section-head"><div><div class="kicker">DIARIO</div><h3>Ultimi controlli</h3></div><button id="showAll" class="ghost">Mostra tutto</button></div>
+      <div id="history" class="history"></div>
+    </section>
+
+    <section class="method-card">
+      <div class="method-icon">Σ</div>
+      <div><div class="kicker">COME È STATA SCELTA</div><h3>Ranking statistico finale</h3><p>La sestina è stata selezionata tra le combinazioni storicamente non estratte usando il modello finale sviluppato durante l'analisi. Il ranking integra struttura della sestina, relazioni tra numeri, dinamica storica e robustezza su più finestre temporali.</p><p class="muted">Questo è un progetto sperimentale indipendente e non ufficiale. Il ranking non modifica la probabilità matematica delle combinazioni prevista dal regolamento.</p></div>
+    </section>
+  </main>
+
+  <footer><span>SESTINA FISSA · progetto sperimentale</span><a href="https://www.superenalotto.it/archivio-estrazioni" target="_blank" rel="noopener">Archivio ufficiale ↗</a></footer>
+  <script src="app.js"></script>
+  <script>if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(()=>{});</script>
+</body>
+</html>

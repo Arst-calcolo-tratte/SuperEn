@@ -1,0 +1,10 @@
+{
+  "name":"Sestina Fissa — SuperEnalotto",
+  "short_name":"Sestina Fissa",
+  "start_url":"./",
+  "display":"standalone",
+  "background_color":"#06111f",
+  "theme_color":"#071525",
+  "lang":"it-IT",
+  "icons":[]
+}
