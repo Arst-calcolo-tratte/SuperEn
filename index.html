@@ -1,27 +1,165 @@
 <!doctype html>
 <html lang="it">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#071525"><meta name="description" content="Laboratorio statistico indipendente per SuperEnalotto e VinciCasa">
-<title>Laboratorio Numerico — SuperEnalotto & VinciCasa</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="icon.svg">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#070c13">
+<meta name="description" content="Laboratorio statistico indipendente per SuperEnalotto e VinciCasa: due esperimenti a confronto, aggiornati automaticamente.">
+<title>Laboratorio Numerico — SuperEnalotto &amp; VinciCasa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
 </head>
-<body><div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
-<header class="topbar"><div class="brand"><div class="brand-mark"><span>Σ</span></div><div><div class="eyebrow">PROGETTO STATISTICO</div><h1>Laboratorio Numerico</h1></div></div><div class="status-pill"><span class="dot"></span><span id="syncLabel">Archivio sincronizzato</span></div></header>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark">Σ</div>
+    <div class="brand-text">
+      <p class="brand-eyebrow">Laboratorio Numerico</p>
+      <h1>SuperEnalotto &amp; VinciCasa</h1>
+    </div>
+  </div>
+  <div class="topbar-actions">
+    <a id="recalcLink" class="recalc-link" href="#" target="_blank" rel="noopener" hidden>Ricalcola ora ↗</a>
+    <div class="status-pill"><span class="dot" id="statusDot"></span><span id="syncLabel">Sincronizzazione…</span></div>
+  </div>
+</header>
+
 <main class="shell">
-<section class="hero"><div class="hero-copy"><div class="kicker">DUE ESPERIMENTI IN PARALLELO</div><h2>SuperEnalotto.<br><span>VinciCasa.</span></h2><p>Lo storico viene aggiornato automaticamente. La combinazione SuperEnalotto resta fissa; VinciCasa mantiene una cinquina fissa e, separatamente, calcola una proposta dinamica dopo ogni nuova estrazione.</p></div><div class="hero-card"><div class="mini-label">ULTIMO SUPERENALOTTO</div><div id="latestDate" class="latest-date">—</div><div id="latestDraw" class="draw-line"></div><div class="jolly-line">Jolly <b id="latestJolly">—</b></div></div></section>
-<section class="section-title"><span>SUPERENALOTTO</span><b>🔒 Sestina fissa</b></section>
-<section class="fixed-card"><div class="card-head"><div><div class="kicker">COMBINAZIONE FISSA</div><h3>06 · 38 · 43 · 53 · 61 · 83</h3></div><div class="lock">🔒 FISSA</div></div><div class="balls" id="targetBalls"></div><div class="jolly-target"><span>JOLLY</span><div class="ball ball-jolly">80</div></div><div class="fixed-note">Questa combinazione non viene modificata automaticamente.</div></section>
-<section class="result-grid"><article class="result-card"><div class="result-top"><div><div class="kicker">ULTIMO CONTROLLO</div><h3 id="resultTitle">In attesa</h3></div><div id="resultBadge" class="result-badge neutral">—</div></div><div class="match-row" id="matchRow"></div><div id="resultMessage" class="result-message">Il sistema confronterà automaticamente la sestina con l'ultima estrazione.</div></article><article class="stats-card"><div class="kicker">ESPERIMENTO SUPERENALOTTO</div><div class="stat-grid"><div><span>Concorsi osservati</span><b id="observed">0</b></div><div><span>Miglior risultato</span><b id="bestHit">—</b></div><div><span>Ultimo concorso</span><b id="latestContest">—</b></div><div><span>Sestina già estratta?</span><b id="historicalCheck">—</b></div></div></article></section>
-<section class="history-card" id="superHistory"><div class="section-head"><div><div class="kicker">DIARIO</div><h3>Ultimi controlli SuperEnalotto</h3></div><button id="showAll" class="ghost">Vai al diario</button></div><div id="history" class="history"></div></section>
-<section class="section-title vc-title"><span>VINCI CASA</span><b>🧠 Modello dinamico + 🔒 cinquina fissa</b></section>
-<section class="hero-card vc-latest"><div class="mini-label">ULTIMA ESTRAZIONE VINCI CASA</div><div id="vcLatestDate" class="latest-date">—</div><div id="vcLatestDraw" class="draw-line"></div><div id="vcSyncLabel" class="latest-date">—</div></section>
-<section class="fixed-card vc-fixed-card"><div class="card-head"><div><div class="kicker">CINQUINA FISSA</div><h3>11 · 13 · 19 · 28 · 32</h3></div><div class="lock">🔒 FISSA</div></div><div class="balls" id="vcFixedBalls"></div><div class="vc-result"><strong id="vcFixedResult">—</strong><span id="vcFixedMessage">In attesa dell'ultima estrazione.</span></div><div class="fixed-note">Questa è la cinquina che abbiamo scelto come esperimento fisso. Non cambia automaticamente.</div></section>
-<section class="fixed-card model-card"><div class="card-head"><div><div class="kicker">PROPOSTA DEL MODELLO</div><h3>Cinquina dinamica</h3></div><div class="model-pill">🧠 AGGIORNATA</div></div><div class="balls" id="vcModelBalls"></div><div class="vc-result"><strong id="vcModelResult">—</strong><span id="vcModelMessage">Il modello verrà ricalcolato quando lo storico sarà disponibile.</span></div><div class="model-note">Dopo una nuova estrazione il programma aggiorna il database e rivaluta l'intero spazio delle <b>658.008</b> cinquine. La proposta è un ranking sperimentale, non una probabilità matematica superiore.</div></section>
-<section class="result-grid"><article class="stats-card"><div class="kicker">STATISTICHE VINCI CASA</div><div class="stat-grid"><div><span>Estrazioni archiviate</span><b id="vcObserved">0</b></div><div><span>Modello</span><b id="vcModelStatus">—</b></div><div><span>Storico usato dal modello</span><b id="vcModelHistory">—</b></div><div><span>Fissa già estratta?</span><b id="vcFixedHistorical">—</b></div></div></article><article class="stats-card"><div class="kicker">LOGICA DI AGGIORNAMENTO</div><p class="result-message">1. nuova estrazione → 2. database aggiornato → 3. frequenze, coppie e struttura ricalcolate → 4. tutte le 658.008 cinquine valutate → 5. proposta dinamica salvata. La cinquina fissa resta separata.</p></article></section>
-<section class="history-card" id="vcHistoryCard"><div class="section-head"><div><div class="kicker">DIARIO VINCI CASA</div><h3>Ultime estrazioni</h3></div><button id="showVcAll" class="ghost">Vai al diario</button></div><div id="vcHistory" class="history"></div></section>
-<section class="method-card"><div class="method-icon">Σ</div><div><div class="kicker">NOTA METODOLOGICA</div><h3>Esperimento indipendente</h3><p>Il modello dinamico usa segnali descrittivi dello storico — frequenze, frequenze recenti, co-occorrenze e struttura delle cinquine — per produrre un ranking. Non altera le probabilità matematiche previste dai regolamenti.</p><p class="muted">L'app non è ufficiale Sisal. I dati vengono letti dagli archivi pubblici e conservati nel repository.</p></div></section>
-</main><footer><span>LABORATORIO NUMERICO · progetto sperimentale</span><span><a href="https://www.superenalotto.it/archivio-estrazioni" target="_blank" rel="noopener">Archivio SuperEnalotto ↗</a> · <a href="https://www.sisal.it/estrazioni/vincicasa" target="_blank" rel="noopener">Archivio VinciCasa ↗</a></span></footer>
-<script src="app.js"></script><script>if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});</script>
-</body></html>
+
+  <section class="intro">
+    <p class="eyebrow">Due esperimenti statistici, stessa domanda</p>
+    <h2>Una combinazione scelta in anticipo può battere il caso?</h2>
+    <p class="lede">Ogni nuova estrazione viene confrontata automaticamente con due combinazioni fissate prima di iniziare. SuperEnalotto è il gruppo di controllo: la sestina non cambia mai. VinciCasa è il gruppo sperimentale: accanto alla cinquina fissa, un modello ricalcola una proposta dinamica dopo ogni estrazione, valutando tutte le 658.008 cinquine possibili.</p>
+  </section>
+
+  <div class="lab">
+
+    <section class="column column-cold" aria-labelledby="seHeading">
+      <header class="column-head">
+        <p class="column-kicker">Gruppo di controllo</p>
+        <h3 id="seHeading">SuperEnalotto</h3>
+        <p class="column-sub">Sestina fissa, confrontata a ogni estrazione. Mai ricalcolata.</p>
+      </header>
+
+      <article class="card fixed-card">
+        <div class="card-head">
+          <p class="card-label">Combinazione fissa</p>
+          <span class="pill pill-lock">Fissa</span>
+        </div>
+        <div class="balls" id="targetBalls"></div>
+        <div class="jolly-row"><span class="jolly-label">Jolly abbinato</span><div class="ball ball-mini ball-jolly">80</div></div>
+      </article>
+
+      <article class="card">
+        <div class="card-head">
+          <p class="card-label">Ultima estrazione</p>
+          <span class="pill pill-badge" id="resultBadge">—</span>
+        </div>
+        <p class="draw-meta" id="latestDate">In attesa dei dati</p>
+        <div class="balls balls-sm" id="latestDraw"></div>
+        <div class="jolly-row"><span class="jolly-label">Jolly estratto</span><div class="ball ball-mini ball-jolly" id="latestJolly">—</div></div>
+        <div class="match-row" id="matchRow"></div>
+        <p class="card-note" id="resultMessage">Il sistema confronta automaticamente la sestina fissa con ogni nuova estrazione.</p>
+      </article>
+
+      <article class="card note-card">
+        <p class="card-label">Perché non si ricalcola</p>
+        <p class="card-note">SuperEnalotto è il gruppo di controllo dell'esperimento: la sestina resta identica per costruzione, per poter confrontare nel tempo una scelta fissa rispetto alla proposta ricalcolata di VinciCasa.</p>
+      </article>
+
+      <article class="card">
+        <p class="card-label">Statistiche</p>
+        <div class="stat-grid">
+          <div><span>Concorsi osservati</span><b id="observed">0</b></div>
+          <div><span>Miglior risultato</span><b id="bestHit">—</b></div>
+          <div><span>Ultima estrazione nota</span><b id="latestContest">—</b></div>
+          <div><span>Sestina già uscita?</span><b id="historicalCheck">—</b></div>
+        </div>
+      </article>
+
+      <article class="card history-card" id="superHistory">
+        <p class="card-label">Diario estrazioni</p>
+        <div class="history" id="history"></div>
+      </article>
+    </section>
+
+    <section class="column column-warm" aria-labelledby="vcHeading">
+      <header class="column-head">
+        <p class="column-kicker">Gruppo sperimentale</p>
+        <h3 id="vcHeading">VinciCasa</h3>
+        <p class="column-sub">Cinquina fissa, più un modello ricalcolato a ogni estrazione.</p>
+      </header>
+
+      <article class="card fixed-card">
+        <div class="card-head">
+          <p class="card-label">Cinquina fissa</p>
+          <span class="pill pill-lock">Fissa</span>
+        </div>
+        <div class="balls" id="vcFixedBalls"></div>
+      </article>
+
+      <article class="card">
+        <div class="card-head">
+          <p class="card-label">Ultima estrazione</p>
+        </div>
+        <p class="draw-meta" id="vcLatestDate">In attesa dei dati</p>
+        <div class="balls balls-sm" id="vcLatestDraw"></div>
+        <div class="vc-result-row">
+          <div class="vc-result-item"><span>Fissa</span><b id="vcFixedResult">—</b><small id="vcFixedMessage"></small></div>
+          <div class="vc-result-item"><span>Modello</span><b id="vcModelResult">—</b><small id="vcModelMessage"></small></div>
+        </div>
+      </article>
+
+      <article class="card model-card">
+        <div class="card-head">
+          <p class="card-label">Proposta del modello</p>
+          <span class="pill pill-badge" id="vcModelStatus">—</span>
+        </div>
+        <div class="balls" id="vcModelBalls"></div>
+        <p class="card-note">Ricalcolata dopo ogni nuova estrazione su tutte le 658.008 cinquine possibili, combinando frequenza storica, frequenza recente, co-occorrenze e struttura. Resta un ranking sperimentale: non implica una probabilità matematica superiore.</p>
+      </article>
+
+      <article class="card">
+        <p class="card-label">Statistiche</p>
+        <div class="stat-grid">
+          <div><span>Estrazioni archiviate</span><b id="vcObserved">0</b></div>
+          <div><span>Storico usato dal modello</span><b id="vcModelHistory">—</b></div>
+          <div><span>Fissa già uscita?</span><b id="vcFixedHistorical">—</b></div>
+          <div><span>Archivio completo?</span><b id="vcHistoryComplete">—</b></div>
+        </div>
+      </article>
+
+      <article class="card history-card" id="vcHistoryCard">
+        <p class="card-label">Diario estrazioni</p>
+        <div class="history" id="vcHistory"></div>
+      </article>
+    </section>
+
+  </div>
+
+  <section class="method-card">
+    <div class="method-icon">Σ</div>
+    <div class="method-body">
+      <p class="eyebrow">Nota metodologica</p>
+      <h3>Esperimento indipendente, non ufficiale</h3>
+      <p>Il modello dinamico usa segnali descrittivi dello storico per produrre un ranking; non altera le probabilità matematiche previste dai regolamenti, identiche per ogni cinquina possibile. I dati sono letti dagli archivi pubblici e conservati nel repository, con aggiornamento automatico più volte al giorno.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span>Laboratorio Numerico · progetto sperimentale indipendente, non affiliato a Sisal</span>
+  <span><a href="https://www.superenalotto.it/archivio-estrazioni" target="_blank" rel="noopener">Archivio SuperEnalotto ↗</a> · <a href="https://www.sisal.it/estrazioni/vincicasa" target="_blank" rel="noopener">Archivio VinciCasa ↗</a></span>
+</footer>
+
+<script src="app.js"></script>
+<script>if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});</script>
+</body>
+</html>

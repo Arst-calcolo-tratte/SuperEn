@@ -1,4 +1,4 @@
-import json,re,urllib.request,datetime,itertools,math
+import json,re,time,urllib.request,urllib.error,datetime,itertools,math
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -9,8 +9,12 @@ VC_OUT=ROOT/'data/vincicasa.json'
 SE_URL='https://www.superenalotto.it/archivio-estrazioni'
 VC_OFFICIAL='https://www.sisal.it/estrazioni/vincicasa'
 VC_FALLBACK_YEARS='https://www.xamig.com/vincicasa/{year}/estrazioni.php'
+VC_BOOTSTRAP_FIRST_YEAR=2014
 
 MONTHS={'gennaio':1,'febbraio':2,'marzo':3,'aprile':4,'maggio':5,'giugno':6,'luglio':7,'agosto':8,'settembre':9,'ottobre':10,'novembre':11,'dicembre':12}
+
+def now_iso():
+    return datetime.datetime.now(datetime.timezone.utc).isoformat()
 
 class TableParser(HTMLParser):
     def __init__(self):
@@ -25,10 +29,18 @@ class TableParser(HTMLParser):
             self.row.append(' '.join(''.join(self.cell).split())); self.in_cell=False
         elif t=='tr' and self.row: self.rows.append(self.row)
 
-def fetch(url):
-    req=urllib.request.Request(url,headers={'User-Agent':UA,'Accept-Language':'it-IT,it;q=0.9,en;q=0.7'})
-    with urllib.request.urlopen(req,timeout=35) as r:
-        return r.read().decode('utf-8','ignore')
+def fetch(url,tries=2,delay=2):
+    """GET a URL with a couple of retries; network hiccups shouldn't kill a whole run."""
+    last_err=None
+    for attempt in range(tries):
+        try:
+            req=urllib.request.Request(url,headers={'User-Agent':UA,'Accept-Language':'it-IT,it;q=0.9,en;q=0.7'})
+            with urllib.request.urlopen(req,timeout=35) as r:
+                return r.read().decode('utf-8','ignore')
+        except (urllib.error.URLError,TimeoutError) as e:
+            last_err=e
+            if attempt<tries-1: time.sleep(delay)
+    raise last_err
 
 def parse_super():
     raw=fetch(SE_URL); p=TableParser(); p.feed(raw); out=[]
@@ -84,7 +96,7 @@ def parse_vc_official(raw):
         # Exclude contest number by preferring values 1..40 after the date.
         nums=nums[-5:]
         if len(set(nums))==5:
-            out.append({'date':f'{d.group(3)}-{d.group(2)}-{d.group(1)}','contest':int(m.group(1)),'numbers':sorted(nums)})
+            out.append({'date':f'{d.group(3)}-{int(d.group(2)):02d}-{int(d.group(1)):02d}','contest':int(m.group(1)),'numbers':sorted(nums)})
     return out
 
 def load(path):
@@ -96,52 +108,23 @@ def save(path,data):
 
 def update_super():
     old=load(SE_OUT)
-    try: fresh=parse_super()
+    old['lastAttemptAt']=now_iso()
+    try:
+        fresh=parse_super()
     except Exception as e:
+        old['lastError']=f'{type(e).__name__}: {e}'
+        save(SE_OUT,old)
         print('SuperEnalotto update failed:',e); return
-    merged={d['contest']:d for d in old.get('draws',[])}
-    for d in fresh: merged[d['contest']]=d
-    old['draws']=sorted(merged.values(),key=lambda x:(x['date'],x['contest']),reverse=True)
-    old['updatedAt']=datetime.datetime.now(datetime.timezone.utc).isoformat()
+    # Merge keyed by draw date: each date has exactly one draw, and unlike the contest
+    # number (which resets to 1 every January and is missing on most bootstrapped rows)
+    # the date is always present and unique, so this can never collapse the archive.
+    merged={d['date']:d for d in old.get('draws',[]) if isinstance(d,dict) and 'date' in d}
+    for d in fresh: merged[d['date']]=d
+    old['draws']=sorted(merged.values(),key=lambda x:x['date'],reverse=True)
+    old['updatedAt']=now_iso()
+    old['lastError']=None
     save(SE_OUT,old)
     print('SuperEnalotto:',len(old['draws']),'draws')
-
-def update_vincicasa():
-    old=load(VC_OUT)
-    merged={d['date']+'|'+str(d['contest']):d for d in old.get('draws',[]) if isinstance(d,dict) and 'date' in d and 'contest' in d}
-    today=datetime.datetime.now(datetime.timezone.utc).year
-    # Full bootstrap until the archive is complete. Once complete, refresh current + previous year.
-    years=range(2014,today+1) if len(merged)<3000 else range(max(2014,today-1),today+1)
-    for year in years:
-        try:
-            fresh=parse_vc_table(fetch(VC_FALLBACK_YEARS.format(year=year)))
-            for d in fresh: merged[d['date']+'|'+str(d['contest'])]=d
-            print('VinciCasa',year,len(fresh))
-        except Exception as e:
-            print('VinciCasa year',year,'failed:',e)
-    # Official Sisal is the authority for the latest result. Its page structure is not guaranteed
-    # to be tabular, so only merge rows that can be parsed unambiguously.
-    try:
-        fresh=parse_vc_official(fetch(VC_OFFICIAL))
-        for d in fresh: merged[d['date']+'|'+str(d['contest'])]=d
-        print('VinciCasa official:',len(fresh))
-    except Exception as e:
-        print('VinciCasa official update failed:',e)
-    draws=sorted(merged.values(),key=lambda x:(x['date'],x['contest']),reverse=True)
-    # Sanity filter: one date/contest must represent exactly one 5-number draw.
-    clean=[]; seen=set()
-    for d in draws:
-        key=(d['date'],d['contest'])
-        nums=d.get('numbers',[])
-        if key in seen or len(nums)!=5 or len(set(nums))!=5 or any(n<1 or n>40 for n in nums): continue
-        seen.add(key); clean.append({'date':d['date'],'contest':int(d['contest']),'numbers':sorted(nums)})
-    old['draws']=clean
-    old['updatedAt']=datetime.datetime.now(datetime.timezone.utc).isoformat()
-    old['source']=VC_OFFICIAL
-    old['historyComplete']=len(clean)>=3000
-    old['model']=rank_vincicasa(clean)
-    save(VC_OUT,old)
-    print('VinciCasa total:',len(clean),'draws; complete:',old['historyComplete'],'dynamic:',old['model'].get('numbers'))
 
 def mean(vals): return sum(vals)/len(vals) if vals else 0.0
 
@@ -183,6 +166,58 @@ def rank_vincicasa(draws):
     scores.sort(reverse=True)
     best=scores[0]
     return {'status':'active','numbers':list(best[1]),'score':round(best[0],6),'historyUsed':n,'top10':[{'numbers':list(c),'score':round(s,6)} for s,c in scores[:10]],'method':'ensemble-frequency-recent-pairs-structure-v1'}
+
+def update_vincicasa():
+    old=load(VC_OUT)
+    old['lastAttemptAt']=now_iso()
+    had_error=False
+    merged={d['date']+'|'+str(d['contest']):d for d in old.get('draws',[]) if isinstance(d,dict) and 'date' in d and 'contest' in d}
+    today=datetime.datetime.now(datetime.timezone.utc).year
+    # Bootstrap the full annual archive only until it's genuinely complete, then remember that
+    # with a persisted flag. Re-deriving "complete" from len(merged) alone re-triggers a 13-page
+    # crawl of a third-party site on every run if a single year ever comes back short — the flag
+    # makes completion sticky so steady-state runs only ever touch the current and previous year.
+    bootstrap_done=bool(old.get('historyComplete'))
+    years=range(max(VC_BOOTSTRAP_FIRST_YEAR,today-1),today+1) if bootstrap_done else range(VC_BOOTSTRAP_FIRST_YEAR,today+1)
+    for year in years:
+        try:
+            fresh=parse_vc_table(fetch(VC_FALLBACK_YEARS.format(year=year)))
+            for d in fresh: merged[d['date']+'|'+str(d['contest'])]=d
+            print('VinciCasa',year,len(fresh))
+        except Exception as e:
+            had_error=True
+            print('VinciCasa year',year,'failed:',e)
+    # Official Sisal is the authority for the latest result. Its page structure is not guaranteed
+    # to be tabular, so only merge rows that can be parsed unambiguously.
+    try:
+        fresh=parse_vc_official(fetch(VC_OFFICIAL))
+        for d in fresh: merged[d['date']+'|'+str(d['contest'])]=d
+        print('VinciCasa official:',len(fresh))
+    except Exception as e:
+        had_error=True
+        print('VinciCasa official update failed:',e)
+    draws=sorted(merged.values(),key=lambda x:(x['date'],x['contest']),reverse=True)
+    # Sanity filter: one date/contest must represent exactly one 5-number draw.
+    clean=[]; seen=set()
+    for d in draws:
+        key=(d['date'],d['contest'])
+        nums=d.get('numbers',[])
+        if key in seen or len(nums)!=5 or len(set(nums))!=5 or any(n<1 or n>40 for n in nums): continue
+        seen.add(key); clean.append({'date':d['date'],'contest':int(d['contest']),'numbers':sorted(nums)})
+    if not clean and old.get('draws'):
+        # Every source failed on a run — never overwrite good history with nothing.
+        old['lastError']='Nessuna estrazione valida ottenuta in questo tentativo; archivio precedente conservato.'
+        save(VC_OUT,old)
+        print('VinciCasa: update produced no valid draws, keeping previous archive')
+        return
+    old['draws']=clean
+    old['updatedAt']=now_iso()
+    old['source']=VC_OFFICIAL
+    old['historyComplete']=len(clean)>=3000 or bootstrap_done
+    old['model']=rank_vincicasa(clean)
+    old['lastError']=('Una o più fonti non hanno risposto correttamente; dati parzialmente aggiornati.' if had_error else None)
+    save(VC_OUT,old)
+    print('VinciCasa total:',len(clean),'draws; complete:',old['historyComplete'],'dynamic:',old['model'].get('numbers'))
 
 def main():
     update_super(); update_vincicasa()
