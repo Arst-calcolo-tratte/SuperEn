@@ -1,6 +1,6 @@
 {
   "source": "https://www.sisal.it/estrazioni/vincicasa",
-  "updatedAt": "2026-09-09T18:18:20.725512+00:00",
+  "updatedAt": "2026-09-09T22:55:12.831768+00:00",
   "draws": [
     {
       "date": "2026-09-08",
@@ -7004,7 +7004,7 @@
     ],
     "method": "ensemble-frequency-recent-pairs-structure-v1"
   },
-  "lastAttemptAt": "2026-09-09T18:16:56.374279+00:00",
+  "lastAttemptAt": "2026-09-09T22:53:49.312934+00:00",
   "historyComplete": false,
   "lastError": "Una o più fonti non hanno risposto correttamente; dati parzialmente aggiornati."
 }
