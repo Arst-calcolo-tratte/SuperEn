@@ -1,0 +1,165 @@
+{
+  "project_name": "SuperEnalotto / VinciCasa / 10eLotto Laboratorio",
+  "app_type": "hybrid_fullstack_dashboard",
+  "theme_strategy": {
+    "default_mode": "dark",
+    "theme_toggle": true,
+    "archetype": "THE PERFORMANCE PRO x ITALIAN LOTTERY LUXURY",
+    "background_dark": "#0B0F17",
+    "background_light": "#F8FAFC",
+    "surface_dark": "#151C2C",
+    "surface_light": "#FFFFFF",
+    "border_dark": "rgba(255, 255, 255, 0.08)",
+    "border_light": "#E2E8F0"
+  },
+  "color_palette": {
+    "brand_primary": {
+      "hex": "#10B981",
+      "name": "Smeraldo Sisal Green",
+      "usage": "Primary badges, live update status, winning ball highlight, primary buttons"
+    },
+    "brand_secondary": {
+      "hex": "#F59E0B",
+      "name": "Gold Jackpot / SuperStar",
+      "usage": "SuperStar ball, Jackpot badge, hot numbers, interactive highlights"
+    },
+    "brand_accent_jolly": {
+      "hex": "#EC4899",
+      "name": "Jolly Rose / Pink",
+      "usage": "Jolly ball glow, special stats badges"
+    },
+    "brand_vincicasa": {
+      "hex": "#3B82F6",
+      "name": "VinciCasa Azure Blue",
+      "usage": "VinciCasa game mode active tabs, icons, and house winning stats"
+    },
+    "brand_10elotto": {
+      "hex": "#8B5CF6",
+      "name": "10eLotto Neon Violet",
+      "usage": "10eLotto game mode active tabs, Oro / Doppio Oro numbers"
+    },
+    "neutrals_dark": {
+      "bg_main": "#090D14",
+      "card_bg": "#111827",
+      "card_hover": "#1F2937",
+      "text_primary": "#F9FAFB",
+      "text_secondary": "#9CA3AF",
+      "text_muted": "#6B7280"
+    },
+    "neutrals_light": {
+      "bg_main": "#F8FAFC",
+      "card_bg": "#FFFFFF",
+      "card_hover": "#F1F5F9",
+      "text_primary": "#0F172A",
+      "text_secondary": "#475569",
+      "text_muted": "#94A3B8"
+    }
+  },
+  "typography": {
+    "font_family_heading": "Outfit, sans-serif",
+    "font_family_body": "Plus Jakarta Sans, sans-serif",
+    "font_family_mono": "JetBrains Mono, monospace",
+    "font_cdn_links": [
+      "https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"
+    ],
+    "scale": {
+      "h1_hero": "text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight",
+      "h2_section": "text-2xl sm:text-3xl font-bold tracking-tight",
+      "h3_card": "text-lg sm:text-xl font-semibold tracking-tight",
+      "body_lead": "text-base sm:text-lg font-normal text-muted-foreground",
+      "body_regular": "text-sm sm:text-base font-normal",
+      "badge_mono": "font-mono text-xs sm:text-sm font-bold tracking-wide"
+    }
+  },
+  "lottery_ball_design_system": {
+    "concept": "Tactile 3D Spheres with Dynamic Radial Gradient & Shadow Depth",
+    "superenalotto_standard": "bg-gradient-to-br from-emerald-400 via-emerald-600 to-emerald-950 text-white shadow-[0_4px_12px_rgba(16,185,129,0.35)] ring-1 ring-emerald-300/40",
+    "jolly_ball": "bg-gradient-to-br from-pink-400 via-rose-600 to-rose-950 text-white shadow-[0_4px_12px_rgba(236,72,153,0.4)] ring-2 ring-pink-300/60 animate-pulse",
+    "superstar_ball": "bg-gradient-to-br from-amber-300 via-yellow-500 to-amber-800 text-slate-950 shadow-[0_4px_14px_rgba(245,158,11,0.5)] ring-2 ring-amber-200/80 font-black",
+    "vincicasa_ball": "bg-gradient-to-br from-blue-400 via-blue-600 to-indigo-950 text-white shadow-[0_4px_12px_rgba(59,130,246,0.35)] ring-1 ring-blue-300/40",
+    "10elotto_ball": "bg-gradient-to-br from-purple-400 via-purple-600 to-purple-950 text-white shadow-[0_4px_12px_rgba(139,92,246,0.35)] ring-1 ring-purple-300/40",
+    "oro_ball": "bg-gradient-to-br from-yellow-300 via-amber-500 to-yellow-900 text-slate-950 shadow-[0_4px_12px_rgba(234,179,8,0.5)] ring-2 ring-yellow-200",
+    "sizes": {
+      "compact": "w-8 h-8 text-xs font-bold rounded-full flex items-center justify-center shrink-0",
+      "standard": "w-11 h-11 sm:w-12 sm:h-12 text-base sm:text-lg font-extrabold rounded-full flex items-center justify-center shrink-0 shadow-md",
+      "hero": "w-14 h-14 sm:w-16 sm:h-16 text-xl sm:text-2xl font-black rounded-full flex items-center justify-center shrink-0 shadow-xl"
+    }
+  },
+  "layout_grid_strategy": {
+    "mode": "MODE B: High Density Dashboard Grid + Tetris Marketing Hero Header",
+    "container_padding": "px-4 sm:px-6 lg:px-8 py-6 max-w-7xl mx-auto space-y-8",
+    "hero_bar": "col-span-full bg-card/80 backdrop-blur-xl border border-border rounded-2xl p-6 shadow-xl relative overflow-hidden",
+    "grid_structure": "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6",
+    "widget_spans": {
+      "game_selector_header": "col-span-full",
+      "latest_draw_hero_card": "lg:col-span-7 row-span-2",
+      "quick_status_and_actions": "lg:col-span-5 row-span-2",
+      "frequent_numbers_chart": "lg:col-span-6",
+      "late_numbers_chart": "lg:col-span-6",
+      "ticket_generator_workbench": "lg:col-span-8",
+      "recent_draws_archive": "lg:col-span-4"
+    }
+  },
+  "interactive_components": {
+    "header_navigation": {
+      "logo": "SuperEnalotto / VinciCasa / 10eLotto Laboratorio",
+      "game_tabs": ["SuperEnalotto", "VinciCasa", "10eLotto"],
+      "last_updated_badge": "Live timestamp display with pulsating status dot",
+      "manual_sync_button": "Triggers backend scraping sync with interactive loading spinner, success toast & detailed error banner"
+    },
+    "results_section": {
+      "extraction_info": "Concorso N° + Timestamp Estrazione + Montepremi/Jackpot",
+      "numbers_display": "Hexagonal/Linear aligned 3D tactile lottery balls for Main Numbers, Jolly, SuperStar, Numero Oro",
+      "copy_button": "Quick copy extracted numbers string"
+    },
+    "laboratory_analytics": {
+      "tabs": ["Frequenti (Hot)", "Ritardatari (Cold)", "Spia & Gemelli", "Distribuzione"],
+      "chart_type": "Recharts dynamic horizontal / vertical bar charts with custom tooltip, glow effect, & interactive filter slider"
+    },
+    "ticket_generator": {
+      "strategies": [
+        "Casuale Purissimo",
+        "Basato sui Frequenti",
+        "Basato sui Ritardatari",
+        "Bilanciato (Frequenti + Ritardatari + Random)"
+      ],
+      "controls": "Number count selector (e.g., 6 numbers for SuperEnalotto), play count, export/download ticket as PNG/Text",
+      "interactive_ticket": "Printable-style Italian Sisal physical coupon visualizer"
+    }
+  },
+  "image_urls": {
+    "texture_gold": "https://images.unsplash.com/photo-1656055450593-5f9fc1e88b65?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTJ8MHwxfHNlYXJjaHxfHxlbnwwfHx8fDE3ODkxMTA5Mzl8MA&ixlib=rb-4.1.0&q=85",
+    "texture_green": "https://images.unsplash.com/photo-1756363212483-2a60660fd4c1?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTJ8MHwxfHNlYXJjaHxfHxlbnwwfHx8fDE3ODkxMTA5Mzl8MA&ixlib=rb-4.1.0&q=85",
+    "jackpot_glow": "https://images.unsplash.com/photo-1703379943611-64676d5e4c96?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTJ8MHwxfHNlYXJjaHxfHxlbnwwfHx8fDE3ODkxMTA5NDd8MA&ixlib=rb-4.1.0&q=85"
+  },
+  "testing_and_accessibility": {
+    "data_testids_required": [
+      "game-selector-superenalotto",
+      "game-selector-vincicasa",
+      "game-selector-10elotto",
+      "btn-force-update",
+      "status-update-indicator",
+      "timestamp-last-update",
+      "latest-draw-numbers-container",
+      "ball-number-*",
+      "jolly-ball",
+      "superstar-ball",
+      "stats-frequent-chart",
+      "stats-late-chart",
+      "generator-strategy-select",
+      "generator-generate-btn",
+      "generated-ticket-display",
+      "archive-draws-list"
+    ],
+    "contrast_standards": "WCAG AA / APCA compliant high-contrast text and interactive focus outline (ring-2 ring-emerald-500)"
+  },
+  "instructions_to_main_agent": [
+    "Load Google Fonts Outfit and Plus Jakarta Sans into public/index.html or index.css.",
+    "Implement game context state switching seamlessly between SuperEnalotto, VinciCasa, and 10eLotto.",
+    "Render realistic 3D tactile lottery balls with gradients, shadows, and smooth hover animations.",
+    "Ensure backend API sync state is reflected with live spinners, error messages, and success toasts using sonner.",
+    "Add interactive generator with instant coupon visualization that can be saved or copied.",
+    "Ensure full responsiveness from 320px mobile screens to large desktop monitors.",
+    "Every clickable button, dropdown, chart, and status indicator must carry explicit data-testid attributes."
+  ]
+}
