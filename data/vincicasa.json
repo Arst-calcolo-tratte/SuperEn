@@ -1,7 +1,18 @@
 {
   "source": "https://www.sisal.it/estrazioni/vincicasa",
-  "updatedAt": "2026-09-19T20:00:44.403346+00:00",
+  "updatedAt": "2026-09-19T22:39:53.433290+00:00",
   "draws": [
+    {
+      "date": "2026-09-19",
+      "contest": 262,
+      "numbers": [
+        5,
+        22,
+        29,
+        33,
+        40
+      ]
+    },
     {
       "date": "2026-09-18",
       "contest": 261,
@@ -7008,8 +7019,8 @@
       28,
       40
     ],
-    "score": 6.707026,
-    "historyUsed": 636,
+    "score": 6.722358,
+    "historyUsed": 637,
     "top10": [
       {
         "numbers": [
@@ -7019,7 +7030,7 @@
           28,
           40
         ],
-        "score": 6.707026
+        "score": 6.722358
       },
       {
         "numbers": [
@@ -7029,17 +7040,17 @@
           36,
           40
         ],
-        "score": 6.577521
+        "score": 6.592479
       },
       {
         "numbers": [
-          4,
           8,
-          19,
+          13,
           28,
-          36
+          36,
+          40
         ],
-        "score": 6.525991
+        "score": 6.530038
       },
       {
         "numbers": [
@@ -7049,7 +7060,7 @@
           36,
           40
         ],
-        "score": 6.489517
+        "score": 6.50463
       },
       {
         "numbers": [
@@ -7059,7 +7070,7 @@
           28,
           40
         ],
-        "score": 6.488274
+        "score": 6.503624
       },
       {
         "numbers": [
@@ -7069,27 +7080,7 @@
           38,
           40
         ],
-        "score": 6.483233
-      },
-      {
-        "numbers": [
-          4,
-          8,
-          19,
-          28,
-          38
-        ],
-        "score": 6.474946
-      },
-      {
-        "numbers": [
-          8,
-          13,
-          28,
-          36,
-          40
-        ],
-        "score": 6.45742
+        "score": 6.497935
       },
       {
         "numbers": [
@@ -7099,7 +7090,7 @@
           36,
           40
         ],
-        "score": 6.421066
+        "score": 6.436023
       },
       {
         "numbers": [
@@ -7109,12 +7100,32 @@
           36,
           40
         ],
-        "score": 6.408882
+        "score": 6.424023
+      },
+      {
+        "numbers": [
+          4,
+          8,
+          19,
+          28,
+          36
+        ],
+        "score": 6.417975
+      },
+      {
+        "numbers": [
+          8,
+          19,
+          28,
+          36,
+          40
+        ],
+        "score": 6.380677
       }
     ],
     "method": "ensemble-frequency-recent-pairs-structure-v1"
   },
-  "lastAttemptAt": "2026-09-19T19:59:23.187573+00:00",
+  "lastAttemptAt": "2026-09-19T22:38:32.167613+00:00",
   "historyComplete": false,
   "lastError": "Una o più fonti non hanno risposto correttamente; dati parzialmente aggiornati."
 }
