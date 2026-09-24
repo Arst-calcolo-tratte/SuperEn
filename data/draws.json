@@ -59759,6 +59759,6 @@
       "superstar": 0
     }
   ],
-  "lastAttemptAt": "2026-09-24T02:59:36.321115+00:00",
-  "lastError": null
+  "lastAttemptAt": "2026-09-24T08:21:08.435106+00:00",
+  "lastError": "HTTPError: HTTP Error 403: Forbidden"
 }
