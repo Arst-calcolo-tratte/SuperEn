@@ -1,7 +1,20 @@
 {
-  "updatedAt": "2026-09-29T12:03:54.541434+00:00",
+  "updatedAt": "2026-09-29T19:45:52.254016+00:00",
   "source": "https://www.superenalotto.it/archivio-estrazioni",
   "draws": [
+    {
+      "date": "2026-09-29",
+      "contest": 156,
+      "numbers": [
+        16,
+        26,
+        28,
+        30,
+        43,
+        72
+      ],
+      "jolly": 5
+    },
     {
       "date": "2026-09-26",
       "contest": 155,
@@ -59798,6 +59811,6 @@
       "superstar": 0
     }
   ],
-  "lastAttemptAt": "2026-09-29T12:03:53.557796+00:00",
+  "lastAttemptAt": "2026-09-29T19:45:50.866580+00:00",
   "lastError": null
 }
