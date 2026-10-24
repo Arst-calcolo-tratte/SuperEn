@@ -1,7 +1,20 @@
 {
-  "updatedAt": "2026-10-24T15:20:05.049367+00:00",
+  "updatedAt": "2026-10-24T20:09:26.864670+00:00",
   "source": "https://www.superenalotto.it/archivio-estrazioni",
   "draws": [
+    {
+      "date": "2026-10-24",
+      "contest": 171,
+      "numbers": [
+        11,
+        17,
+        32,
+        50,
+        73,
+        80
+      ],
+      "jolly": 62
+    },
     {
       "date": "2026-10-23",
       "contest": 170,
@@ -59993,6 +60006,6 @@
       "superstar": 0
     }
   ],
-  "lastAttemptAt": "2026-10-24T15:20:04.233736+00:00",
+  "lastAttemptAt": "2026-10-24T20:09:24.918553+00:00",
   "lastError": null
 }
