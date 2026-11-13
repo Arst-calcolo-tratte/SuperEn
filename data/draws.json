@@ -1,7 +1,20 @@
 {
-  "updatedAt": "2026-11-13T04:54:57.749519+00:00",
+  "updatedAt": "2026-11-13T21:09:35.140965+00:00",
   "source": "https://www.superenalotto.it/archivio-estrazioni",
   "draws": [
+    {
+      "date": "2026-11-13",
+      "contest": 182,
+      "numbers": [
+        23,
+        24,
+        55,
+        56,
+        82,
+        86
+      ],
+      "jolly": 46
+    },
     {
       "date": "2026-11-12",
       "contest": 181,
@@ -60136,6 +60149,6 @@
       "superstar": 0
     }
   ],
-  "lastAttemptAt": "2026-11-13T13:52:04.013856+00:00",
-  "lastError": "HTTPError: HTTP Error 403: Forbidden"
+  "lastAttemptAt": "2026-11-13T21:09:33.948872+00:00",
+  "lastError": null
 }
